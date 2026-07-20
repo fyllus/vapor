@@ -12,11 +12,12 @@ modules:
         destination: /
 
   - type: dnf
-    packages:
-      - gamescope
-      - steam
-      - xorg-x11-server-Xwayland
-      - greetd
+    install:
+      packages:
+        - gamescope
+        - steam
+        - xorg-x11-server-Xwayland
+        - greetd
 
   - type: systemd
     system:
