@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-name: bluehat-vapor
-description: Steam OS, but not Steam OS, is blue-like only.
+name: bluevapor
+description: Blue like Steam, but light as vapor.
 
 base-image: ghcr.io/ublue-os/base-main
 image-version: latest
@@ -14,14 +14,26 @@ modules:
   - type: dnf
     install:
       packages:
+        # core
         - gamescope
         - steam
         - xorg-x11-server-Xwayland
         - greetd
+        # net
+        - bluez
+        - NetworkManager-wifi
+        - libnm
+        # fonts
+        - google-noto-sans-fonts
+        - dejavu-sans-fonts
+        - fuse-exfat
+        - ntfs-3g
 
   - type: systemd
     system:
       enabled:
         - greetd.service
+        - bluetooth.service
+        - NetworkManager.service
 
   - type: signing
