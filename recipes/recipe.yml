@@ -55,6 +55,6 @@ modules:
 
   - type: script
     snippets:
-        -"passwd -d gamer"        
+        - "passwd -d gamer"        
 
   - type: signing
