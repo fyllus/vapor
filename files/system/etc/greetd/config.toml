@@ -1,3 +1,6 @@
+[terminal]
+vt = 1
+
 [default_session]
-command = "gamescope -f -W 1920 -H 1080 -r 60 -e -- steam -gamepadui -steamos -nodearm"
+command = "gamescope -f -e -- steam -gamepadui -steamos -nodearm"
 user = "gamer"

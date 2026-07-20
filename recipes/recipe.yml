@@ -52,5 +52,9 @@ modules:
         - bolt.service
         - sssd.service
         - sshd.service
-        
+
+  - type: script
+    snippets:
+        -"passwd -d gamer"        
+
   - type: signing
