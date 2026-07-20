@@ -37,4 +37,20 @@ modules:
         - bluetooth.service
         - NetworkManager.service
 
+      disabled:
+        - cups.service             
+        - cups.path
+        - avahi-daemon.service     
+        - geoclue.service         
+        - ModemManager.service     
+        - thermal-daemon.service
+        - abrt-journal-core.service
+        - abrt-oops.service
+        - abrt-xorg.service
+        - iio-sensor-proxy.service
+        - switcheroo-control.service
+        - bolt.service
+        - sssd.service
+        - sshd.service
+        
   - type: signing

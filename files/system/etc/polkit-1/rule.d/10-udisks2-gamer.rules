@@ -1,0 +1,8 @@
+polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.udisks2.filesystem-mount" ||
+         action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+         action.id == "org.freedesktop.udisks2.encrypted-unlock") &&
+        subject.isInGroup("gamer")) {
+        return polkit.Result.YES;
+    }
+});
