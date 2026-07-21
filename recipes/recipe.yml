@@ -15,37 +15,39 @@ modules:
     install:
       packages:
         # core
-        - gamescope
-        - steam
         - xorg-x11-server-Xwayland
         - greetd
         # net
         - bluez
         - NetworkManager-wifi
         - NetworkManager-libnm
-        # fonts
+        # filesystem & fonts
         - google-noto-sans-fonts
         - dejavu-sans-fonts
         - exfatprogs
         - ntfs-3g
-        # drivers 
+        # drivers
         - mesa-dri-drivers
         - mesa-vulkan-drivers
         - vulkan-loader
 
-  - type: systemd
+  # Sintaxe corrigida do modulo de Flatpaks
+  - type: default-flatpaks
+    notify: true
+    scope: system
+    flatpaks:
+      - com.valvesoftware.Steam
+      - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+      - org.freedesktop.Platform.VulkanLayer.Gamescope
 
+  - type: systemd
     system:
       enabled:
         - greetd.service
         - bluetooth.service
         - NetworkManager.service
-      
+
   - type: script
     scripts:
-        - group-add.sh
-        - service-disable.sh
-            
-        
-
-          
+      - group-add.sh
+      - service-disable.sh
