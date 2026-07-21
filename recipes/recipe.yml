@@ -28,6 +28,10 @@ modules:
         - dejavu-sans-fonts
         - exfatprogs
         - ntfs-3g
+        # drivers 
+        - mesa-dri-drivers
+        - mesa-vulkan-drivers
+        - vulkan-loader
 
   - type: systemd
 
