@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Instala a Steam e as dependencias no primeiro boot
 flatpak install -y --system flathub \
   com.valvesoftware.Steam \
   com.valvesoftware.Steam.CompatibilityTool.Proton-GE \
   org.freedesktop.Platform.VulkanLayer.Gamescope
 
-# Desativa o servico para nao rodar mais nos proximos boots
-systemctl disable install-flatpaks-firstboot.service
+flatpak override --system --filesystem=host com.valvesoftware.Steam
+
+systemctl disable install-flatpaks.service

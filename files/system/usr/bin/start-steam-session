@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-exec gamescope -e -f -R 1920x1080 -r 60 -- flatpak run com.valvesoftware.Steam -gamepadui
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
+exec flatpak run com.valvesoftware.Steam -gamepadui -gamescope -w 1920 -h 1080 -r 60

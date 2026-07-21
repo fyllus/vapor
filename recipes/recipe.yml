@@ -16,7 +16,6 @@ modules:
       packages:
         # core
         - xorg-x11-server-Xwayland
-        - gamescope
         - greetd
         # net
         - bluez
