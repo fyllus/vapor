@@ -43,6 +43,7 @@ modules:
       
   - type: script
     snippets:
+      - "groupadd -g 1000 gamer || groupadd gamer"  
       - "useradd -m -u 1000 -g 1000 -G input,video,render,audio gamer"
       - "passwd -d gamer"
       - "mkdir -p /var/home/gamer/.local/share /var/home/gamer/.config"
