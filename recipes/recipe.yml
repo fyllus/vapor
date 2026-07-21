@@ -18,6 +18,7 @@ modules:
         - xorg-x11-server-Xwayland
         - gnome-initial-setup
         - gdm
+        - accountsservice
         - steam
         - gamescope
         # net

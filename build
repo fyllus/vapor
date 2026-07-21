@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+NAME="$1"
+
+[[ -z "$NAME" ]] && NAME="vapor-installer.iso"
+
+sudo podman run --rm -it --privileged \
+  --pull=newer \
+  -v ./custom.ks:/config/kickstart.ks:ro,z \
+  -v $HOME:/output \
+  quay.io/centos-bootc/bootc-image-builder:latest \
+  --type iso \
+  --chown $(id -u):$(id -g) \
+  ghcr.io/seu-usuario/vapor:latest
