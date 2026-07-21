@@ -2,5 +2,5 @@
 set -euo pipefail
 
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-
-exec flatpak run com.valvesoftware.Steam -gamepadui -steamos -nodearm
+export MESA_LOADER_DRIVER_OVERRIDE=virtio
+exec flatpak run com.valvesoftware.Steam -gamepadui -gamescope -w 1920 -h 1080 -r 60
