@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+STATE="/var/lib/vapor/state"
+
+if [[ ! -f "$STATE" ]]; then
+    echo "error: state not found"
+    exit 1
+fi
+
+source "$STATE"
+
+
+if [[ -z "${VAPOR_USER:-}" ]]; then
+    echo "error: invalid user in state"
+    exit 1
+fi
+
+
+if ! id "$VAPOR_USER" &>/dev/null; then
+    echo "error: user does not exist"
+    exit 1
+fi
+
+
+exec /sbin/agetty \
+    --autologin "$VAPOR_USER" \
+    --noclear \
+    /dev/tty1

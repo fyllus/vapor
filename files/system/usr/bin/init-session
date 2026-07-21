@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+STATE="/var/lib/vapor/state"
+
+source "$STATE"
+
+
+# detect virt
+IS_VM=$(systemd-detect-virt || true)
+
+
+if [[ "$IS_VM" != "none" && -n "$IS_VM" ]]; then
+    export MESA_LOADER_DRIVER_OVERRIDE=virtio
+    export LIBGL_ALWAYS_SOFTWARE=0
+fi
+
+
+# ensure runtime
+if [[ -z "${XDG_RUNTIME_DIR:-}" ]]; then
+    export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+fi
+
+
+# init steam session
+exec gamescope \
+    -f \
+    -e \
+    -- steam -gamepadui

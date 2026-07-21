@@ -1,52 +1,81 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+
 name: vapor
 description: Blue like Steam, but light as vapor.
 
 base-image: ghcr.io/ublue-os/base-main
 image-version: latest
 
+
 modules:
+
   - type: files
     files:
       - source: system
         destination: /
+
 
   - type: dnf
     install:
       install-weak-deps: false
 
       packages:
+
         # core
         - xorg-x11-server-Xwayland
-        - initial-setup-gui
-        - lightdm
-        - lightdm-gtk-greeter
         - accountsservice
         - steam
         - gamescope
-        # net
+
+        # session
+        - dbus
+        - dbus-daemon
+        - xdg-user-dirs
+        - polkit
+
+        # network
         - bluez
+        - bluez-tools
         - NetworkManager-wifi
         - NetworkManager-libnm
+
         # filesystem & fonts
         - google-noto-sans-fonts
         - dejavu-sans-fonts
         - exfatprogs
         - ntfs-3g
-        # drivers
+
+        # audio
+        - pipewire
+        - pipewire-pulseaudio
+        - pipewire-alsa
+        - wireplumber
+
+        # gpu / vulkan
         - mesa-dri-drivers
         - mesa-vulkan-drivers
+        - mesa-libGL
+        - mesa-libEGL
         - vulkan-loader
+        - vulkan-tools
         - virglrenderer
+
+        # devices
+        - libinput
 
 
   - type: systemd
     system:
       enabled:
-        - initial-setup.service
-        - lightdm.service
+        - startup.service
+        - autologin-session.service
         - bluetooth.service
         - NetworkManager.service
+
+    user:
+      enabled:
+        - vapor-session.service
+
 
   - type: script
     scripts:

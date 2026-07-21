@@ -1,0 +1,8 @@
+[Unit]
+Description=Vapor Startup Manager
+After=systemd-user-sessions.service plymouth-quit-wait.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/vapor/startup
+RemainAfterExit=yes

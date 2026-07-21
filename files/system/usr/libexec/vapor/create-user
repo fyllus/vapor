@@ -1,0 +1,151 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+STATE_DIR="/var/lib/vapor"
+STATE_FILE="$STATE_DIR/state"
+
+DEFAULT_USER="gamer"
+DEFAULT_HOME_BASE="/var/home"
+
+VAPOR_GROUPS=(
+    video
+    render
+    audio
+    input
+)
+
+if [[ "$EUID" -ne 0 ]]; then
+    echo "error: this script must be called by root user"
+    exit 1
+fi
+
+
+ask_user()
+{
+    USERNAME=$(zenity \
+        --entry \
+        --title="Vapor Setup" \
+        --text="User name:" \
+        --entry-text="$DEFAULT_USER")
+
+    if [[ -z "$USERNAME" ]]; then
+        exit 1
+    fi
+}
+
+
+ask_locale()
+{
+    LOCALE=$(zenity \
+        --entry \
+        --title="Locale" \
+        --text="System locale:" \
+        --entry-text="pt_BR.UTF-8")
+
+    KEYMAP=$(zenity \
+        --entry \
+        --title="Keyboard" \
+        --text="Keyboard laylout:" \
+        --entry-text="br-abnt2")
+}
+
+
+create_user()
+{
+    if id "$USERNAME" &>/dev/null; then
+        echo "info: user already exists"
+        return
+    fi
+
+    USER_HOME="$DEFAULT_HOME_BASE/$USERNAME"
+
+    group_args=()
+
+    for group in "${VAPOR_GROUPS[@]}"; do
+        if getent group "$group" >/dev/null; then
+            group_args+=("$group")
+        fi
+    done
+
+
+    useradd \
+        --create-home \
+        --home-dir "$USER_HOME" \
+        --shell /bin/bash \
+        --groups "$(IFS=,; echo "${group_args[*]}")" \
+        --disabled-password \
+        "$USERNAME"
+}
+
+
+prepare_user()
+{
+    USER_UID=$(id -u "$USERNAME")
+    USER_GID=$(id -g "$USERNAME")
+
+    USER_HOME=$(getent passwd "$USERNAME" | cut -d: -f6)
+
+
+    mkdir -p \
+        "$USER_HOME/.config" \
+        "$USER_HOME/.cache" \
+        "$USER_HOME/.local/share"
+
+
+    chown -R \
+        "$USER_UID:$USER_GID" \
+        "$USER_HOME"
+
+
+    loginctl enable-linger "$USERNAME"
+}
+
+
+create_state()
+{
+    mkdir -p "$STATE_DIR"
+
+
+    cat > "${STATE_FILE}.tmp" <<EOF
+VAPOR_VERSION=1
+
+VAPOR_USER="$USERNAME"
+VAPOR_UID="$USER_UID"
+VAPOR_GID="$USER_GID"
+
+VAPOR_HOME="$USER_HOME"
+
+VAPOR_LOCALE="$LOCALE"
+VAPOR_KEYMAP="$KEYMAP"
+EOF
+
+
+    chmod 600 "${STATE_FILE}.tmp"
+
+    mv \
+        "${STATE_FILE}.tmp" \
+        "$STATE_FILE"
+}
+
+
+main()
+{
+    ask_user
+
+    ask_locale
+
+    create_user
+
+    prepare_user
+
+    create_state
+
+    zenity \
+        --info \
+        --title="Vapor Setup" \
+        --text="Sucess: user created."
+}
+
+
+main

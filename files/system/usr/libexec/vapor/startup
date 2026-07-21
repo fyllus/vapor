@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+STATE="/var/lib/vapor/state"
+CREATE_USER="/usr/libexec/vapor/create-user"
+
+
+if [[ -f "$STATE" ]]; then
+    exit 0
+fi
+
+
+"$CREATE_USER"
+
+
+if [[ ! -f "$STATE" ]]; then
+    echo "error: state not found"
+    exit 1
+fi
+
+
+exit 0

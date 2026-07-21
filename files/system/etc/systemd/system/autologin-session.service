@@ -1,0 +1,10 @@
+[Unit]
+Description=Vapor Autologin
+Requires=startup.service
+After=startup.service
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/usr/libexec/vapor/autologin
+Restart=on-failure
