@@ -32,10 +32,12 @@ modules:
         - vulkan-loader
 
   - type: default-flatpaks
-    system:
-        - com.valvesoftware.Steam
-        - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-        - org.freedesktop.Platform.VulkanLayer.Gamescope
+    configurations:
+        - scope: system
+          flatpaks:
+            - com.valvesoftware.Steam
+            - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+            - org.freedesktop.Platform.VulkanLayer.Gamescope
 
   - type: systemd
     system:
