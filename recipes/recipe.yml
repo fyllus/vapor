@@ -19,7 +19,8 @@ modules:
         # core
         - xorg-x11-server-Xwayland
         - initial-setup-gui
-        - gdm
+        - lightdm
+        - lightdm-gtk-greeter
         - accountsservice
         - steam
         - gamescope
@@ -42,7 +43,8 @@ modules:
   - type: systemd
     system:
       enabled:
-        - gdm.service
+        - initial-setup.service
+        - lightdm.service
         - bluetooth.service
         - NetworkManager.service
 
