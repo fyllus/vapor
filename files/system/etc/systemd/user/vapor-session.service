@@ -1,0 +1,11 @@
+[Unit]
+Description=Vapor Steam Session
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/init-session
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
