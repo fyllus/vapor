@@ -1,0 +1,13 @@
+[Unit]
+Description=Install Flatpaks on First Boot
+After=network-online.target flatpak-system-helper.service
+Wants=network-online.target
+Before=greetd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/install-flatpaks-firstboot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

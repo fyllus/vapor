@@ -39,7 +39,7 @@ modules:
         - greetd.service
         - bluetooth.service
         - NetworkManager.service
-
+        - install-flatpaks-firstboot.service
   - type: script
     scripts:
       - group-add.sh
