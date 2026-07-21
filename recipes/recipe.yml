@@ -33,7 +33,6 @@ modules:
 
   - type: default-flatpaks
     system:
-      flatpaks:
         - com.valvesoftware.Steam
         - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
         - org.freedesktop.Platform.VulkanLayer.Gamescope
