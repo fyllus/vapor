@@ -43,9 +43,13 @@ modules:
       
   - type: script
     snippets:
-        - "groupadd gamer || true"
-        - "useradd -m -g gamer -G input,video,render,audio gamer || true"
-        - "passwd -d gamer || true"
+        - "groupadd -f gamer"
+        - "groupadd -f input"
+        - "groupadd -f video"
+        - "groupadd -f render"
+        - "groupadd -f audio"
+        - "useradd -m -u 1000 -g gamer -G input,video,render,audio gamer || useradd -m -g gamer -G input,video,render,audio gamer"
+        - "passwd -d gamer"
         - "mkdir -p /var/home/gamer/.local/share /var/home/gamer/.config"
         - "chown -R gamer:gamer /var/home/gamer"
         - "chmod -R 755 /var/home/gamer"
