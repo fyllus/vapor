@@ -32,9 +32,9 @@ modules:
         - vulkan-loader
 
   
-  - type: default-flatpaks
+   - type: default-flatpaks
     
-    install:
+     install:
       - com.valvesoftware.Steam
       - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
       - org.freedesktop.Platform.VulkanLayer.Gamescope
