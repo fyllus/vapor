@@ -2,5 +2,5 @@
 vt = 1
 
 [default_session]
-command = "flatpak run com.valvesoftware.Steam -gamepadui -steamos -ndearm"
+command = "/usr/bin/start-steam-session"
 user = "gamer"

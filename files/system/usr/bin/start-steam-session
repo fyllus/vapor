@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+
+if ! flatpak info com.valvesoftware.Steam >/dev/null 2>&1; then
+    flatpak install -y --system flathub com.valvesoftware.Steam
+fi
+
+if ! flatpak info com.valvesoftware.Steam.CompatibilityTool.Proton-GE >/dev/null 2>&1; then
+    flatpak install -y --system flathub com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+fi
+
+if ! flatpak info org.freedesktop.Platform.VulkanLayer.Gamescope >/dev/null 2>&1; then
+    flatpak install -y --system flathub org.freedesktop.Platform.VulkanLayer.Gamescope
+fi
+
+# Executa o Steam via Gamescope
+exec gamescope -e -f -R 1920x1080 -r 60 -- flatpak run com.valvesoftware.Steam -gamepadui

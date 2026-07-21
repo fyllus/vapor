@@ -16,6 +16,7 @@ modules:
       packages:
         # core
         - xorg-x11-server-Xwayland
+        - gamescope
         - greetd
         # net
         - bluez
@@ -31,13 +32,6 @@ modules:
         - mesa-vulkan-drivers
         - vulkan-loader
 
-  - type: default-flatpaks
-    configurations:
-        - scope: system
-          flatpaks:
-            - com.valvesoftware.Steam
-            - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-            - org.freedesktop.Platform.VulkanLayer.Gamescope
 
   - type: systemd
     system:
