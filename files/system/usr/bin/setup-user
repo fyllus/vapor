@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "gamer:gamer" | chpasswd
+
+chown -R gamer:gamer /var/home/gamer
+
+systemctl disable setup-gamer-user.service

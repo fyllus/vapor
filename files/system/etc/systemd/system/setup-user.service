@@ -1,0 +1,12 @@
+[Unit]
+Description=Firstboot Gamer Account Provisioning
+After=systemd-sysusers.service systemd-tmpfiles-setup.service
+Before=greetd.service install-flatpaks.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/setup-user
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

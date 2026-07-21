@@ -39,7 +39,9 @@ modules:
         - bluetooth.service
         - NetworkManager.service
         - install-flatpaks-firstboot.service
+        - setup-user.service
+
   - type: script
     scripts:
-      - group-add.sh
+      #- group-add.sh
       - service-disable.sh
