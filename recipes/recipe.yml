@@ -31,13 +31,12 @@ modules:
         - mesa-vulkan-drivers
         - vulkan-loader
 
-  
-   - type: default-flatpaks
-    
-     install:
-      - com.valvesoftware.Steam
-      - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-      - org.freedesktop.Platform.VulkanLayer.Gamescope
+  - type: default-flatpaks
+    system:
+      flatpaks:
+        - com.valvesoftware.Steam
+        - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+        - org.freedesktop.Platform.VulkanLayer.Gamescope
 
   - type: systemd
     system:
