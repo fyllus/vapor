@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 
-NAME="$1"
+set -euo pipefail
 
-[[ -z "$NAME" ]] && NAME="vapor-installer.iso"
+OPT="${1:-vapor-bluehat}"
 
-sudo podman run --rm -it --privileged \
-  --pull=newer \
-  -v ./custom.ks:/config/kickstart.ks:ro,z \
-  -v $HOME:/output \
-  quay.io/centos-bootc/bootc-image-builder:latest \
-  --type iso \
-  --chown $(id -u):$(id -g) \
-  ghcr.io/seu-usuario/vapor:latest
+STAGE="a"
+MAJOR="1"
+MINOR="1"
+PATCH="$(date '+%Y%m%d%H%M')"
+
+VERSION="$STAGE$MAJOR.$MINOR.$PATCH"
+
+NAME="$OPT-$VERSION"
+ISO_DIR="$HOME/bluebuild/isos"
+ISO_PATH="$ISO_DIR/$NAME.iso"
+
+mkdir -p "$ISO_DIR"
+rm -f "$ISO_PATH"
+
+_OLD_DIR="$PWD"
+
+cd $ISO_DIR
+
+sudo bluebuild generate-iso --iso-name "$NAME.iso" image ghcr.io/fyllus/vapor
+
+cd $_OLD_DIR

@@ -13,10 +13,12 @@ modules:
 
   - type: dnf
     install:
+      install-weak-deps: false
+
       packages:
         # core
         - xorg-x11-server-Xwayland
-        - gnome-initial-setup
+        - initial-setup-gui
         - gdm
         - accountsservice
         - steam
@@ -46,4 +48,4 @@ modules:
 
   - type: script
     scripts:
-      - service-disable.sh
+      - cleanup.sh
