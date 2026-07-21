@@ -31,11 +31,10 @@ modules:
         - mesa-vulkan-drivers
         - vulkan-loader
 
-  # Sintaxe corrigida do modulo de Flatpaks
+  
   - type: default-flatpaks
-    notify: true
-    scope: system
-    flatpaks:
+    
+    install:
       - com.valvesoftware.Steam
       - com.valvesoftware.Steam.CompatibilityTool.Proton-GE
       - org.freedesktop.Platform.VulkanLayer.Gamescope
