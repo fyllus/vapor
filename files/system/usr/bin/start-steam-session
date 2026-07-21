@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Identifica se esta rodando em VM de forma dinamica no boot
+IS_VM=$(systemd-detect-virt || true)
+
+if [ "${IS_VM}" != "none" ] && [ -n "${IS_VM}" ]; then
+    export MESA_LOADER_DRIVER_OVERRIDE=virtio
+    export LIBGL_ALWAYS_SOFTWARE=0
+fi
+
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-export MESA_LOADER_DRIVER_OVERRIDE=virtio
-exec flatpak run com.valvesoftware.Steam -gamepadui -gamescope -w 1920 -h 1080 -r 60
+
+# Roda a Steam via Gamescope nativo
+exec gamescope -W 1280 -H 720 -w 1280 -h 720 -e -f -- steam -gamepadui

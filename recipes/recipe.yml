@@ -16,7 +16,10 @@ modules:
       packages:
         # core
         - xorg-x11-server-Xwayland
-        - greetd
+        - gnome-initial-setup
+        - gdm
+        - steam
+        - gamescope
         # net
         - bluez
         - NetworkManager-wifi
@@ -30,18 +33,16 @@ modules:
         - mesa-dri-drivers
         - mesa-vulkan-drivers
         - vulkan-loader
+        - virglrenderer
 
 
   - type: systemd
     system:
       enabled:
-        - greetd.service
+        - gdm.service
         - bluetooth.service
         - NetworkManager.service
-        - install-flatpaks-firstboot.service
-        - setup-user.service
 
   - type: script
     scripts:
-      #- group-add.sh
       - service-disable.sh
