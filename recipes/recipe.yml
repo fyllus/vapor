@@ -24,6 +24,7 @@ modules:
         # core
         - xorg-x11-server-Xwayland
         - accountsservice
+        - cage
         - steam
         - gamescope
 
