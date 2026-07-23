@@ -9,8 +9,7 @@ on:
       - "release"
 
     paths-ignore: 
-      - "**.md"
-      - "build.yml"
+      - "**.md"     
 
   pull_request:
   workflow_dispatch: 
