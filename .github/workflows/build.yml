@@ -2,18 +2,23 @@ name: VaporBuild
 on:
   schedule:
     - cron:
-        "00 12 * * *" # build at 12:00 UTC every day
+        "00 00 * * *" 
         
   push:
+    branches:
+      - "release"
+
     paths-ignore: 
       - "**.md"
+      - "build.yml"
 
   pull_request:
   workflow_dispatch: 
-concurrency:
-  # only run one build at a time
+
+concurrency:  
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
+
 jobs:
   bluebuild:
     name: Build Custom Image
